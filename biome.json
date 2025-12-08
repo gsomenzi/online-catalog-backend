@@ -90,6 +90,16 @@
                     }
                 }
             }
+        },
+        {
+            "includes": ["**/migrations/*.ts"],
+            "linter": {
+                "rules": {
+                    "style": {
+                        "useFilenamingConvention": "off"
+                    }
+                }
+            }
         }
     ]
 }
