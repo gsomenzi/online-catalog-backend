@@ -1,0 +1,6 @@
+{
+    "auth": {
+        "invalidCredentials": "Invalid credentials",
+        "emailAlreadyInUse": "Email already in use"
+    }
+}

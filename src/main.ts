@@ -1,6 +1,7 @@
+import { DomainExceptionFilter } from "@infrastructure/filter";
 import { ClassSerializerInterceptor, VersioningType } from "@nestjs/common";
 import { NestFactory, Reflector } from "@nestjs/core";
-import { I18nValidationExceptionFilter, I18nValidationPipe } from "nestjs-i18n";
+import { I18nService, I18nValidationExceptionFilter, I18nValidationPipe } from "nestjs-i18n";
 import { AppModule } from "./app.module";
 
 async function bootstrap() {
@@ -11,6 +12,7 @@ async function bootstrap() {
         })
     );
     app.useGlobalFilters(
+        new DomainExceptionFilter(app.get(I18nService)),
         new I18nValidationExceptionFilter({
             detailedErrors: true,
         })

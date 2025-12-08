@@ -1,0 +1,6 @@
+{
+    "auth": {
+        "invalidCredentials": "Credenciais inválidas",
+        "emailAlreadyInUse": "E-mail já está em uso"
+    }
+}
