@@ -17,8 +17,12 @@
         "baseUrl": "./",
         "paths": {
             "@/*": ["src/*"],
+            "@application/*": ["src/application/*"],
+            "@domain/*": ["src/domain/*"],
+            "@config/*": ["src/config/*"],
             "@infrastructure/*": ["src/infrastructure/*"],
-            "@persistence/*": ["src/infrastructure/persistence/*"]
+            "@persistence/*": ["src/infrastructure/persistence/*"],
+            "@presentation/*": ["src/presentation/*"]
         },
         "incremental": true,
         "skipLibCheck": true,

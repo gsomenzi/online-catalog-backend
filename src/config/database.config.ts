@@ -1,5 +1,5 @@
 import { DataSourceOptions } from "typeorm";
-import { CreateUsersTable1765154557593 } from "../database/migrations/1765154557593-create_users_table";
+import { CreateUsersTable1765154557593 } from "../config/database/migrations/1765154557593-create_users_table";
 
 export const databaseConfig: DataSourceOptions = {
     type: "mysql",

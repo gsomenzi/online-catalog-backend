@@ -1,13 +1,11 @@
 import path from "node:path";
+import { AuthModule } from "@application/auth/auth.module";
+import { DatabaseModule } from "@config/database/database.module";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
+import { PersistenceModule } from "@persistence/persistence.module";
+import { RestApiModule } from "@presentation/rest-api/rest-api.module";
 import { HeaderResolver, I18nModule, QueryResolver } from "nestjs-i18n";
-import { AppController } from "./app.controller";
-import { AppService } from "./app.service";
-import { AuthModule } from "./application/auth/auth.module";
-import { DatabaseModule } from "./database/database.module";
-import { PersistenceModule } from "./infrastructure/persistence/persistence.module";
-import { RestApiModule } from "./presentation/rest-api/rest-api.module";
 
 @Module({
     imports: [
@@ -25,7 +23,5 @@ import { RestApiModule } from "./presentation/rest-api/rest-api.module";
             resolvers: [{ use: QueryResolver, options: ["lang"] }, new HeaderResolver(["x-lang"])],
         }),
     ],
-    controllers: [AppController],
-    providers: [AppService],
 })
 export class AppModule {}
