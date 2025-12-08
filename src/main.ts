@@ -1,12 +1,18 @@
-import { ClassSerializerInterceptor, ValidationPipe, VersioningType } from "@nestjs/common";
+import { ClassSerializerInterceptor, VersioningType } from "@nestjs/common";
 import { NestFactory, Reflector } from "@nestjs/core";
+import { I18nValidationExceptionFilter, I18nValidationPipe } from "nestjs-i18n";
 import { AppModule } from "./app.module";
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     app.useGlobalPipes(
-        new ValidationPipe({
+        new I18nValidationPipe({
             transform: true,
+        })
+    );
+    app.useGlobalFilters(
+        new I18nValidationExceptionFilter({
+            detailedErrors: true,
         })
     );
     app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));

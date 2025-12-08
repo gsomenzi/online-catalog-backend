@@ -1,0 +1,8 @@
+{
+    "isNotEmpty": "$t(fields.{property}) é obrigatório",
+    "isEmail": "$t(fields.{property}) deve ser um e-mail válido",
+    "isString": "$t(fields.{property}) deve ser um texto",
+    "minLength": "$t(fields.{property}) deve ter no mínimo {constraints.0} caracteres",
+    "maxLength": "$t(fields.{property}) deve ter no máximo {constraints.0} caracteres",
+    "isStrongPassword": "$t(fields.{property}) deve conter letras maiúsculas, minúsculas, números e caracteres especiais"
+}

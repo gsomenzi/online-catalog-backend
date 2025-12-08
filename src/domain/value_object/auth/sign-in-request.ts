@@ -1,8 +1,10 @@
 import { IsNotEmpty } from "class-validator";
+import { i18nValidationMessage } from "nestjs-i18n";
 
 export class SignInRequest {
-    @IsNotEmpty()
+    @IsNotEmpty({ message: i18nValidationMessage("validation.isNotEmpty") })
     email: string;
-    @IsNotEmpty()
+
+    @IsNotEmpty({ message: i18nValidationMessage("validation.isNotEmpty") })
     password: string;
 }
