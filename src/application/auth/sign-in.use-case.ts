@@ -1,18 +1,8 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { UserRepository } from "@persistence/user";
-import { IsNotEmpty } from "class-validator";
-
-export class SignInRequestDTO {
-    @IsNotEmpty()
-    email: string;
-    @IsNotEmpty()
-    password: string;
-}
-
-export class SignInResponseDTO {
-    accessToken: string;
-}
+import { SignInRequest } from "@/domain/value_object/auth/sign-in-request";
+import { SignInResponse } from "@/domain/value_object/auth/sign-in-response";
 
 @Injectable()
 export class SignInUseCase {
@@ -21,7 +11,7 @@ export class SignInUseCase {
         private jwtService: JwtService
     ) {}
 
-    public async execute(dto: SignInRequestDTO): Promise<SignInResponseDTO> {
+    public async execute(dto: SignInRequest): Promise<SignInResponse> {
         const { email, password } = dto;
         const user = await this.userRepository.findByEmail(email);
         if (!user) {

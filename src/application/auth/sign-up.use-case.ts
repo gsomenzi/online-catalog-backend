@@ -1,25 +1,13 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { UserRepository } from "@persistence/user";
-import { IsEmail, IsNotEmpty } from "class-validator";
 import { User } from "@/domain/entity/user.entity";
-
-export class SignUpDTO {
-    @IsNotEmpty()
-    name: string;
-
-    @IsNotEmpty()
-    @IsEmail()
-    email: string;
-
-    @IsNotEmpty()
-    password: string;
-}
+import { SignUpRequest } from "@/domain/value_object/auth/sign-up-request";
 
 @Injectable()
 export class SignUpUseCase {
     constructor(private userRepository: UserRepository) {}
 
-    async execute(dto: SignUpDTO): Promise<User> {
+    async execute(dto: SignUpRequest): Promise<User> {
         const { name, email, password } = dto;
         const existingUser = await this.userRepository.findByEmail(email);
         if (existingUser) {
