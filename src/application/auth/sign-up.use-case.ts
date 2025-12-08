@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { UserRepository } from "@persistence/user";
 import { User } from "@/domain/entity/user.entity";
+import { PasswordService } from "@/domain/service/password.service";
 import { SignUpRequest } from "@/domain/value_object/auth/sign-up-request";
 
 @Injectable()
@@ -13,8 +14,9 @@ export class SignUpUseCase {
         if (existingUser) {
             throw new BadRequestException("Email already in use");
         }
-        const user = await User.create({ name, email, password });
-        await this.userRepository.create(user);
+        const user = User.create({ name, email });
+        const hashedPassword = await PasswordService.hash(password);
+        await this.userRepository.create(user, hashedPassword);
         return user;
     }
 }

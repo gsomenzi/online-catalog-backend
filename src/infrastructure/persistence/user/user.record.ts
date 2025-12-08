@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { User, type UserProps } from "@/domain/entity/user.entity";
+import type { UserCredentials } from "@/domain/value_object/auth/user-credentials";
 
 @Entity("users")
 class UserRecord {
@@ -24,12 +25,14 @@ class UserRecord {
     @DeleteDateColumn({ name: "deleted_at" })
     deletedAt?: Date;
 
-    static fromEntity(user: User): UserRecord {
+    static fromEntity(user: User, hashedPassword?: string): UserRecord {
         const record = new UserRecord();
         record.id = user.id;
         record.name = user.name;
         record.email = user.email;
-        record.password = user.password;
+        if (hashedPassword) {
+            record.password = hashedPassword;
+        }
         record.createdAt = user.createdAt;
         record.updatedAt = user.updatedAt;
         record.deletedAt = user.deletedAt;
@@ -41,12 +44,19 @@ class UserRecord {
             id: record.id,
             name: record.name,
             email: record.email,
-            password: record.password,
             createdAt: record.createdAt,
             updatedAt: record.updatedAt,
             deletedAt: record.deletedAt,
         };
         return new User(userProps);
+    }
+
+    static toCredentials(record: UserRecord): UserCredentials {
+        return {
+            userId: record.id,
+            email: record.email,
+            hashedPassword: record.password,
+        };
     }
 }
 

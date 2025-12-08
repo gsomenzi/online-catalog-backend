@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { User } from "@/domain/entity/user.entity";
+import type { UserCredentials } from "@/domain/value_object/auth/user-credentials";
 import {
     UserActiveSpecification,
     UserByEmailSpecification,
@@ -12,8 +13,8 @@ import { UserRecord } from "@/infrastructure/persistence/user/user.record";
 class UserRepository {
     constructor(private readonly userDAO: UserDAO) {}
 
-    async create(user: User): Promise<void> {
-        const record = UserRecord.fromEntity(user);
+    async create(user: User, hashedPassword: string): Promise<void> {
+        const record = UserRecord.fromEntity(user, hashedPassword);
         await this.userDAO.create(record);
     }
 
@@ -34,6 +35,11 @@ class UserRepository {
     async findByEmail(email: string): Promise<User | null> {
         const record = await this.userDAO.findOne(new UserByEmailSpecification(email), new UserActiveSpecification());
         return record ? UserRecord.toEntity(record) : null;
+    }
+
+    async findCredentialsByEmail(email: string): Promise<UserCredentials | null> {
+        const record = await this.userDAO.findOne(new UserByEmailSpecification(email), new UserActiveSpecification());
+        return record ? UserRecord.toCredentials(record) : null;
     }
 
     async findAll(): Promise<User[]> {
