@@ -1,3 +1,3 @@
 export const jwtConstants = {
-    secret: "HAKUNA-MATATA-SECRET-KEY",
+    secret: process.env.JWT_SECRET || "CHANGE-THIS-SECRET-IN-PRODUCTION",
 };
