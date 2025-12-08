@@ -1,12 +1,12 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { databaseConfig } from "./data-source";
+import { databaseConfig } from "../config/database.config";
 
 @Module({
     imports: [
         TypeOrmModule.forRoot({
             ...databaseConfig,
-            autoLoadEntities: true, // Carrega entities dos módulos automaticamente
+            autoLoadEntities: true,
         }),
     ],
 })
