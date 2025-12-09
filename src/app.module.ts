@@ -7,6 +7,7 @@ import { ThrottlerModule } from "@nestjs/throttler";
 import { PersistenceModule } from "@persistence/persistence.module";
 import { RestApiModule } from "@presentation/rest-api/rest-api.module";
 import { HeaderResolver, I18nModule, QueryResolver } from "nestjs-i18n";
+import { StoreModule } from './application/store/store.module';
 
 @Module({
     imports: [
@@ -42,6 +43,7 @@ import { HeaderResolver, I18nModule, QueryResolver } from "nestjs-i18n";
             },
             resolvers: [{ use: QueryResolver, options: ["lang"] }, new HeaderResolver(["x-lang"])],
         }),
+        StoreModule,
     ],
 })
 export class AppModule {}

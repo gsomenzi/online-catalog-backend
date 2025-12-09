@@ -1,6 +1,6 @@
+import { User, type UserProps } from "@domain/entity/user.entity";
+import type { UserCredentials } from "@domain/value_object/auth/user-credentials";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
-import { User, type UserProps } from "@/domain/entity/user.entity";
-import type { UserCredentials } from "@/domain/value_object/auth/user-credentials";
 
 @Entity("users")
 class UserRecord {
@@ -25,17 +25,17 @@ class UserRecord {
     @DeleteDateColumn({ name: "deleted_at" })
     deletedAt?: Date;
 
-    static fromEntity(user: User, hashedPassword?: string): UserRecord {
+    static fromEntity(entity: User, hashedPassword?: string): UserRecord {
         const record = new UserRecord();
-        record.id = user.id;
-        record.name = user.name;
-        record.email = user.email;
+        record.id = entity.id;
+        record.name = entity.name;
+        record.email = entity.email;
         if (hashedPassword) {
             record.password = hashedPassword;
         }
-        record.createdAt = user.createdAt;
-        record.updatedAt = user.updatedAt;
-        record.deletedAt = user.deletedAt;
+        record.createdAt = entity.createdAt;
+        record.updatedAt = entity.updatedAt;
+        record.deletedAt = entity.deletedAt;
         return record;
     }
 

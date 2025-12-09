@@ -1,48 +1,51 @@
 import { randomUUID } from "node:crypto";
 import { Exclude } from "class-transformer";
+import { User } from "./user.entity";
 
-type CreateUserProps = {
+type CreateStoreProps = {
     name: string;
-    email: string;
+    userId: string;
 };
 
-type UserProps = {
+type StoreProps = {
     id: string;
     name: string;
-    email: string;
+    userId: string;
     createdAt: Date;
     updatedAt: Date;
     deletedAt?: Date;
+    user?: User;
 };
 
-class User {
-    readonly id: string;
-    readonly name: string;
-    readonly email: string;
-    readonly createdAt: Date;
-    readonly updatedAt: Date;
+class Store {
+    id: string;
+    name: string;
+    userId: string;
+    createdAt: Date;
+    updatedAt: Date;
     @Exclude()
-    readonly deletedAt?: Date;
+    deletedAt?: Date;
+    user?: User;
 
-    constructor(props: UserProps) {
+    constructor(props: StoreProps) {
         this.id = props.id;
         this.name = props.name;
-        this.email = props.email;
+        this.userId = props.userId;
         this.createdAt = props.createdAt;
         this.updatedAt = props.updatedAt;
         this.deletedAt = props.deletedAt;
+        this.user = props.user;
     }
 
-    static create(props: CreateUserProps): User {
-        return new User({
+    static create(props: CreateStoreProps): Store {
+        return new Store({
             id: randomUUID(),
             name: props.name,
-            email: props.email,
+            userId: props.userId,
             createdAt: new Date(),
             updatedAt: new Date(),
         });
     }
 }
 
-export { User };
-export type { CreateUserProps, UserProps };
+export { Store };
