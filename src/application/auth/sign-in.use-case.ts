@@ -23,7 +23,7 @@ export class SignInUseCase {
         if (!isPasswordValid) {
             throw new InvalidCredentialsException();
         }
-        const payload = { sub: credentials.userId, email: credentials.email };
+        const payload = { id: credentials.userId, email: credentials.email };
         const accessToken = this.jwtService.sign(payload);
         return { accessToken };
     }

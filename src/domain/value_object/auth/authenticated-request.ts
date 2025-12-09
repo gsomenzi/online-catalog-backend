@@ -2,7 +2,7 @@ import { Request } from "express";
 
 export type AuthenticatedRequest = Request & {
     user: {
-        sub: string;
+        id: string;
         email: string;
     };
 };

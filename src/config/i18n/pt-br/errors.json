@@ -2,5 +2,8 @@
     "auth": {
         "invalidCredentials": "Credenciais inválidas",
         "emailAlreadyInUse": "E-mail já está em uso"
+    },
+    "common": {
+        "objectNotFound": "Objeto não encontrado"
     }
 }

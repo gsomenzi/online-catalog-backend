@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { Store } from "@/domain/entity/store.entity";
 import { StoreActiveSpecification } from "./specifications/store-active.specification";
 import { StoreByIdSpecification } from "./specifications/store-by-id.specification";
-import { StoreWithUserSpecification } from "./specifications/store-with-user.specification";
+import { StoreFromUserSpecification } from "./specifications/store-from-user.specification";
 import { StoreDAO } from "./store.dao";
 import { StoreRecord } from "./store.record";
 
@@ -29,23 +29,21 @@ class StoreRepository {
         return record ? StoreRecord.toEntity(record) : null;
     }
 
-    async findAll(): Promise<Store[]> {
-        const records = await this.storeDAO.findMany(new StoreActiveSpecification());
-        return records.map(StoreRecord.toEntity);
-    }
-
-    async findAllWithUser(): Promise<Store[]> {
-        const records = await this.storeDAO.findMany(new StoreActiveSpecification(), new StoreWithUserSpecification());
-        return records.map(StoreRecord.toEntity);
-    }
-
-    async findByIdWithUser(id: string): Promise<Store | null> {
+    async findUserStoreById(userId: string, storeId: string): Promise<Store | null> {
         const record = await this.storeDAO.findOne(
-            new StoreByIdSpecification(id),
-            new StoreActiveSpecification(),
-            new StoreWithUserSpecification()
+            new StoreByIdSpecification(storeId),
+            new StoreFromUserSpecification(userId),
+            new StoreActiveSpecification()
         );
         return record ? StoreRecord.toEntity(record) : null;
+    }
+
+    async findAll(userId: string): Promise<Store[]> {
+        const records = await this.storeDAO.findMany(
+            new StoreFromUserSpecification(userId),
+            new StoreActiveSpecification()
+        );
+        return records.map(StoreRecord.toEntity);
     }
 }
 
