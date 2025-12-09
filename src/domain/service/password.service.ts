@@ -1,4 +1,4 @@
-class PasswordService {
+export class PasswordService {
     static async hash(plainPassword: string): Promise<string> {
         return Bun.password.hash(plainPassword, {
             algorithm: "bcrypt",
@@ -10,5 +10,3 @@ class PasswordService {
         return Bun.password.verify(plainPassword, hashedPassword);
     }
 }
-
-export { PasswordService };

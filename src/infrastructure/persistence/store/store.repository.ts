@@ -1,14 +1,15 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { Store } from "@/domain/entity/store.entity";
+import type { StoreDAO } from "./dao/store.dao";
+import { STORE_DAO_TOKEN } from "./dao/store.dao";
 import { StoreActiveSpecification } from "./specifications/store-active.specification";
 import { StoreByIdSpecification } from "./specifications/store-by-id.specification";
 import { StoreFromUserSpecification } from "./specifications/store-from-user.specification";
-import { StoreDAO } from "./store.dao";
 import { StoreRecord } from "./store.record";
 
 @Injectable()
 class StoreRepository {
-    constructor(private readonly storeDAO: StoreDAO) {}
+    constructor(@Inject(STORE_DAO_TOKEN) private readonly storeDAO: StoreDAO) {}
 
     async create(store: Store): Promise<void> {
         const record = StoreRecord.fromEntity(store);

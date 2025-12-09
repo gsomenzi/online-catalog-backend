@@ -1,12 +1,10 @@
 import { Injectable } from "@nestjs/common";
+import type { Specification } from "@persistence/specification.interface";
+import { CreateUserRecordDTO, UpdateUserRecordDTO, type UserDAO, UserRecord } from "@persistence/user";
 import { DataSource } from "typeorm";
-import type { Specification } from "@/infrastructure/persistence/specification.interface";
-import { CreateUserRecordDTO } from "@/infrastructure/persistence/user/dto/create-user-record.dto";
-import { UpdateUserRecordDTO } from "@/infrastructure/persistence/user/dto/update-user-record.dto";
-import { UserRecord } from "@/infrastructure/persistence/user/user.record";
 
 @Injectable()
-class UserDAO {
+class UserDatabaseDAO implements UserDAO {
     constructor(private readonly dataSource: DataSource) {}
 
     async create(dto: CreateUserRecordDTO): Promise<void> {
@@ -47,4 +45,4 @@ class UserDAO {
     }
 }
 
-export { UserDAO };
+export { UserDatabaseDAO };

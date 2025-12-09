@@ -1,3 +1,9 @@
 [test]
 root = "./"
 preload = ["./test/setup.ts"]
+coveragePathIgnorePatterns = [
+    "**/dto/**",
+    "**/specifications/**",
+    "**/dao/**",
+    "**/*.repository.ts",
+]

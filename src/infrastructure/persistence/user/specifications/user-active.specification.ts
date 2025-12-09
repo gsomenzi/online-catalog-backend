@@ -1,6 +1,6 @@
 import type { Specification } from "@persistence/specification.interface";
+import type { UserRecord } from "@persistence/user";
 import type { SelectQueryBuilder } from "typeorm";
-import type { UserRecord } from "@/infrastructure/persistence/user/user.record";
 
 class UserActiveSpecification implements Specification<UserRecord> {
     apply(qb: SelectQueryBuilder<UserRecord>): SelectQueryBuilder<UserRecord> {

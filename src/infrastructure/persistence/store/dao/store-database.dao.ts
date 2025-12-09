@@ -1,11 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { DataSource } from "typeorm";
-import { Specification } from "../specification.interface";
-import { CreateStoreRecordDTO, UpdateStoreRecordDTO } from "./dto";
-import { StoreRecord } from "./store.record";
+import type { Specification } from "@/infrastructure/persistence/specification.interface";
+import type { StoreDAO } from "@/infrastructure/persistence/store/dao/store.dao";
+import { CreateStoreRecordDTO, UpdateStoreRecordDTO } from "@/infrastructure/persistence/store/dto";
+import { StoreRecord } from "@/infrastructure/persistence/store/store.record";
 
 @Injectable()
-class StoreDAO {
+class StoreDatabaseDAO implements StoreDAO {
     constructor(private readonly dataSource: DataSource) {}
 
     async create(dto: CreateStoreRecordDTO): Promise<void> {
@@ -46,4 +47,4 @@ class StoreDAO {
     }
 }
 
-export { StoreDAO };
+export { StoreDatabaseDAO };

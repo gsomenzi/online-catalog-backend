@@ -1,17 +1,18 @@
-import { Injectable } from "@nestjs/common";
-import { User } from "@/domain/entity/user.entity";
-import type { UserCredentials } from "@/domain/value_object/auth/user-credentials";
+import { User } from "@domain/entity/user.entity";
+import type { UserCredentials } from "@domain/value_object/auth/user-credentials";
+import { Inject, Injectable } from "@nestjs/common";
 import {
+    USER_DAO_TOKEN,
     UserActiveSpecification,
     UserByEmailSpecification,
     UserByIdSpecification,
-} from "@/infrastructure/persistence/user/specifications";
-import { UserDAO } from "@/infrastructure/persistence/user/user.dao";
-import { UserRecord } from "@/infrastructure/persistence/user/user.record";
+    type UserDAO,
+    UserRecord,
+} from "@persistence/user";
 
 @Injectable()
 class UserRepository {
-    constructor(private readonly userDAO: UserDAO) {}
+    constructor(@Inject(USER_DAO_TOKEN) private readonly userDAO: UserDAO) {}
 
     async create(user: User, hashedPassword: string): Promise<void> {
         const record = UserRecord.fromEntity(user, hashedPassword);
