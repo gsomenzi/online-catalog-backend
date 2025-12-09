@@ -4,5 +4,6 @@
     "isString": "$t(fields.{property}) must be a string",
     "minLength": "$t(fields.{property}) must be at least {constraints.0} characters",
     "maxLength": "$t(fields.{property}) must be at most {constraints.0} characters",
-    "isStrongPassword": "$t(fields.{property}) must contain uppercase, lowercase, numbers and special characters"
+    "isStrongPassword": "$t(fields.{property}) must contain uppercase, lowercase, numbers and special characters",
+    "isNumber": "$t(fields.{property}) must be a number"
 }

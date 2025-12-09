@@ -1,12 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { Exclude } from "class-transformer";
 
-type CreateUserProps = {
-    name: string;
-    email: string;
-};
-
-type UserProps = {
+export type UserProps = {
     id: string;
     name: string;
     email: string;
@@ -15,7 +10,7 @@ type UserProps = {
     deletedAt?: Date;
 };
 
-class User {
+export class User {
     readonly id: string;
     readonly name: string;
     readonly email: string;
@@ -33,7 +28,7 @@ class User {
         this.deletedAt = props.deletedAt;
     }
 
-    static create(props: CreateUserProps): User {
+    static create(props: Pick<UserProps, "name" | "email">): User {
         return new User({
             id: randomUUID(),
             name: props.name,
@@ -43,6 +38,3 @@ class User {
         });
     }
 }
-
-export { User };
-export type { CreateUserProps, UserProps };

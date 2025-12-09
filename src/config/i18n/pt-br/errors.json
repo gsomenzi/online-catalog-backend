@@ -5,5 +5,8 @@
     },
     "common": {
         "objectNotFound": "Objeto não encontrado"
+    },
+    "store": {
+        "storeNotFound": "Loja não encontrada"
     }
 }

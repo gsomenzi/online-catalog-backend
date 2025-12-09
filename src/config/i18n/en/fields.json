@@ -1,5 +1,8 @@
 {
     "name": "name",
     "email": "email",
-    "password": "password"
+    "password": "password",
+    "description": "description",
+    "price": "price",
+    "storeId": "store ID"
 }

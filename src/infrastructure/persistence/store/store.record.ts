@@ -12,7 +12,7 @@ import {
 import { UserRecord } from "../user";
 
 @Entity("stores")
-class StoreRecord {
+export class StoreRecord {
     @PrimaryColumn()
     id: string;
 
@@ -59,5 +59,3 @@ class StoreRecord {
         return new Store(storeProps);
     }
 }
-
-export { StoreRecord };

@@ -3,7 +3,7 @@ import type { UserCredentials } from "@domain/value_object/auth/user-credentials
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
 
 @Entity("users")
-class UserRecord {
+export class UserRecord {
     @PrimaryColumn()
     id: string;
 
@@ -59,5 +59,3 @@ class UserRecord {
         };
     }
 }
-
-export { UserRecord };

@@ -1,6 +1,7 @@
 import { DataSourceOptions } from "typeorm";
 import { CreateUsersTable1765154557593 } from "../config/database/migrations/1765154557593-create_users_table";
 import { CreateStoresTable1765229557541 } from "./database/migrations/1765229557541-create_stores_table";
+import { CreateProductsTable1765302063540 } from "./database/migrations/1765302063540-create_products_table";
 
 export const databaseConfig: DataSourceOptions = {
     type: "mysql",
@@ -12,5 +13,5 @@ export const databaseConfig: DataSourceOptions = {
     synchronize: false,
     logging: process.env.NODE_ENV !== "production",
     entities: ["src/**/*.entity.ts"],
-    migrations: [CreateUsersTable1765154557593, CreateStoresTable1765229557541],
+    migrations: [CreateUsersTable1765154557593, CreateStoresTable1765229557541, CreateProductsTable1765302063540],
 };

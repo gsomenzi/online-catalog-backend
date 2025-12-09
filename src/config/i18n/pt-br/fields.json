@@ -1,5 +1,8 @@
 {
     "name": "nome",
     "email": "e-mail",
-    "password": "senha"
+    "password": "senha",
+    "description": "descrição",
+    "price": "preço",
+    "storeId": "ID da loja"
 }

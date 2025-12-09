@@ -2,11 +2,6 @@ import { randomUUID } from "node:crypto";
 import { Exclude } from "class-transformer";
 import { User } from "./user.entity";
 
-type CreateStoreProps = {
-    name: string;
-    userId: string;
-};
-
 type StoreProps = {
     id: string;
     name: string;
@@ -17,7 +12,7 @@ type StoreProps = {
     user?: User;
 };
 
-class Store {
+export class Store {
     id: string;
     name: string;
     userId: string;
@@ -37,7 +32,7 @@ class Store {
         this.user = props.user;
     }
 
-    static create(props: CreateStoreProps): Store {
+    static create(props: Pick<StoreProps, "name" | "userId">): Store {
         return new Store({
             id: randomUUID(),
             name: props.name,
@@ -47,5 +42,3 @@ class Store {
         });
     }
 }
-
-export { Store };
