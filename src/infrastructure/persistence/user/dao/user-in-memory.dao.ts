@@ -8,10 +8,6 @@ class UserInMemoryDAO implements UserDAO {
 
     async create(dto: CreateUserRecordDTO): Promise<void> {
         const record = Object.assign(new UserRecord(), dto);
-        // Garantir que deletedAt seja null em vez de undefined
-        if (!record.deletedAt) {
-            record.deletedAt = null;
-        }
         this.users.set(record.id, record);
     }
 
@@ -75,12 +71,12 @@ class UserInMemoryDAO implements UserDAO {
         }
 
         if (specName === "UserByEmailSpecification") {
-            const emailSpec = spec as any;
+            const emailSpec = spec as unknown as { email: string };
             return user.email === emailSpec.email;
         }
 
         if (specName === "UserByIdSpecification") {
-            const idSpec = spec as any;
+            const idSpec = spec as unknown as { id: string };
             return user.id === idSpec.id;
         }
 

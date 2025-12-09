@@ -7,7 +7,7 @@ import { ThrottlerModule } from "@nestjs/throttler";
 import { PersistenceModule } from "@persistence/persistence.module";
 import { RestApiModule } from "@presentation/rest-api/rest-api.module";
 import { HeaderResolver, I18nModule, QueryResolver } from "nestjs-i18n";
-import { StoreModule } from './application/store/store.module';
+import { StoreModule } from "./application/store/store.module";
 
 @Module({
     imports: [
