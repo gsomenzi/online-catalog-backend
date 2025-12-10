@@ -18,7 +18,7 @@ describe("CreateProductUseCase", () => {
 
     beforeEach(async () => {
         storeDAO = new StoreInMemoryDAO();
-        productDAO = new ProductInMemoryDAO();
+        productDAO = new ProductInMemoryDAO(storeDAO);
         storeRepository = new StoreRepository(storeDAO);
         productRepository = new ProductRepository(productDAO);
         useCase = new CreateProductUseCase(storeRepository, productRepository);

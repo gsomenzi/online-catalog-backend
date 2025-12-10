@@ -6,6 +6,7 @@ import { ProductRecord } from "./product.record";
 import { ProductActiveSpecification } from "./specifications/product-active.specification";
 import { ProductByIdSpecification } from "./specifications/product-by-id.specification";
 import { ProductFromStoreSpecification } from "./specifications/product-from-store.specification";
+import { ProductFromUserSpecification } from "./specifications/product-from-user.specification";
 
 @Injectable()
 class ProductRepository {
@@ -37,6 +38,15 @@ class ProductRepository {
         const record = await this.productDAO.findOne(
             new ProductByIdSpecification(productId),
             new ProductFromStoreSpecification(storeId),
+            new ProductActiveSpecification()
+        );
+        return record ? ProductRecord.toEntity(record) : null;
+    }
+
+    async findUserProductById(userId: string, productId: string): Promise<Product | null> {
+        const record = await this.productDAO.findOne(
+            new ProductByIdSpecification(productId),
+            new ProductFromUserSpecification(userId),
             new ProductActiveSpecification()
         );
         return record ? ProductRecord.toEntity(record) : null;
