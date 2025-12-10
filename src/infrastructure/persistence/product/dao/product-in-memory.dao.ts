@@ -6,14 +6,13 @@ import {
     type UpdateProductRecordDTO,
 } from "@persistence/product";
 import type { Specification } from "@persistence/specification.interface";
-import { StoreInMemoryDAO } from "@persistence/store";
+import { type StoreInMemoryDAO, StoreRecord } from "@persistence/store";
 
 @Injectable()
 class ProductInMemoryDAO implements ProductDAO {
     private products: Map<string, ProductRecord> = new Map();
 
     constructor(private storeDAO?: StoreInMemoryDAO) {}
-
     async create(dto: CreateProductRecordDTO): Promise<void> {
         const record = Object.assign(new ProductRecord(), dto);
         this.products.set(record.id, record);
@@ -90,15 +89,13 @@ class ProductInMemoryDAO implements ProductDAO {
 
         if (specName === "ProductFromUserSpecification") {
             const userSpec = spec as unknown as { userId: string };
-            // Need to check if product's store belongs to user
             if (this.storeDAO) {
-                const stores = Array.from((this.storeDAO as any).stores.values());
-                const store = stores.find((s: any) => s.id === product.storeId);
+                const stores = Array.from(this.storeDAO.stores.values() as IterableIterator<StoreRecord>);
+                const store = stores.find((s: StoreRecord) => s.id === product.storeId);
                 return store?.userId === userSpec.userId;
             }
             return false;
         }
-
         return true;
     }
 }

@@ -4,7 +4,7 @@ import { type CreateStoreRecordDTO, type StoreDAO, StoreRecord, type UpdateStore
 
 @Injectable()
 class StoreInMemoryDAO implements StoreDAO {
-    private stores: Map<string, StoreRecord> = new Map();
+    public stores: Map<string, StoreRecord> = new Map();
 
     async create(dto: CreateStoreRecordDTO): Promise<void> {
         const record = Object.assign(new StoreRecord(), dto);
