@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { Exclude } from "class-transformer";
+import { Product } from "./product.entity";
 import { User } from "./user.entity";
 
 type StoreProps = {
@@ -10,6 +11,7 @@ type StoreProps = {
     updatedAt: Date;
     deletedAt?: Date;
     user?: User;
+    products?: Product[];
 };
 
 export class Store {
@@ -21,6 +23,7 @@ export class Store {
     @Exclude()
     deletedAt?: Date;
     user?: User;
+    products?: Product[];
 
     constructor(props: StoreProps) {
         this.id = props.id;
@@ -30,6 +33,7 @@ export class Store {
         this.updatedAt = props.updatedAt;
         this.deletedAt = props.deletedAt;
         this.user = props.user;
+        this.products = props.products;
     }
 
     static create(props: Pick<StoreProps, "name" | "userId">): Store {

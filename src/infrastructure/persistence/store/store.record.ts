@@ -6,9 +6,11 @@ import {
     Entity,
     JoinColumn,
     ManyToOne,
+    OneToMany,
     PrimaryColumn,
     UpdateDateColumn,
 } from "typeorm";
+import type { ProductRecord } from "../product";
 import { UserRecord } from "../user";
 
 @Entity("stores")
@@ -22,9 +24,12 @@ export class StoreRecord {
     @Column({ name: "user_id" })
     userId: string;
 
-    @ManyToOne(() => UserRecord)
+    @ManyToOne("UserRecord")
     @JoinColumn({ name: "user_id" })
     user?: UserRecord;
+
+    @OneToMany("ProductRecord", (product: ProductRecord) => product.store)
+    products?: ProductRecord[];
 
     @CreateDateColumn({ name: "created_at" })
     createdAt: Date;
@@ -46,16 +51,15 @@ export class StoreRecord {
         return record;
     }
 
-    static toEntity(record: StoreRecord): Store {
-        const storeProps = {
-            id: record.id,
-            name: record.name,
-            userId: record.userId,
-            createdAt: record.createdAt,
-            updatedAt: record.updatedAt,
-            deletedAt: record.deletedAt,
-            user: record.user ? UserRecord.toEntity(record.user) : undefined,
-        };
-        return new Store(storeProps);
+    toEntity(): Store {
+        return new Store({
+            id: this.id,
+            name: this.name,
+            userId: this.userId,
+            createdAt: this.createdAt,
+            updatedAt: this.updatedAt,
+            deletedAt: this.deletedAt,
+            products: this.products?.map((product) => product.toEntity()),
+        });
     }
 }

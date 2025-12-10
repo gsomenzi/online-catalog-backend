@@ -1,4 +1,5 @@
 import { Exclude } from "class-transformer";
+import { ProductImage } from "./product-image.entity";
 import { Store } from "./store.entity";
 
 type ProductProps = {
@@ -11,6 +12,7 @@ type ProductProps = {
     updatedAt: Date;
     deletedAt?: Date;
     store?: Store;
+    images?: ProductImage[];
 };
 
 export class Product {
@@ -24,6 +26,7 @@ export class Product {
     @Exclude()
     deletedAt?: Date;
     store?: Store;
+    images?: ProductImage[];
 
     constructor(props: ProductProps) {
         this.id = props.id;
@@ -35,6 +38,7 @@ export class Product {
         this.description = props.description;
         this.deletedAt = props.deletedAt;
         this.store = props.store;
+        this.images = props.images;
     }
 
     static create(props: Omit<ProductProps, "id" | "createdAt" | "updatedAt" | "deletedAt">): Product {

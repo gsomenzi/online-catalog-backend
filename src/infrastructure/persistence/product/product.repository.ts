@@ -31,7 +31,7 @@ class ProductRepository {
             new ProductByIdSpecification(id),
             new ProductActiveSpecification()
         );
-        return record ? ProductRecord.toEntity(record) : null;
+        return record ? record.toEntity() : null;
     }
 
     async findStoreProductById(storeId: string, productId: string): Promise<Product | null> {
@@ -40,7 +40,7 @@ class ProductRepository {
             new ProductFromStoreSpecification(storeId),
             new ProductActiveSpecification()
         );
-        return record ? ProductRecord.toEntity(record) : null;
+        return record ? record.toEntity() : null;
     }
 
     async findUserProductById(userId: string, productId: string): Promise<Product | null> {
@@ -49,7 +49,16 @@ class ProductRepository {
             new ProductFromUserSpecification(userId),
             new ProductActiveSpecification()
         );
-        return record ? ProductRecord.toEntity(record) : null;
+        return record ? record.toEntity() : null;
+    }
+
+    async findManyByUserStoreId(userId: string, storeId: string): Promise<Product[]> {
+        const records = await this.productDAO.findMany(
+            new ProductFromUserSpecification(userId),
+            new ProductFromStoreSpecification(storeId),
+            new ProductActiveSpecification()
+        );
+        return records.map((record) => record.toEntity());
     }
 
     async findAll(storeId: string): Promise<Product[]> {
@@ -57,7 +66,7 @@ class ProductRepository {
             new ProductFromStoreSpecification(storeId),
             new ProductActiveSpecification()
         );
-        return records.map(ProductRecord.toEntity);
+        return records.map((record) => record.toEntity());
     }
 }
 

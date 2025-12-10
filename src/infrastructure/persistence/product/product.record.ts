@@ -9,7 +9,7 @@ import {
     UpdateDateColumn,
 } from "typeorm";
 import { Product } from "@/domain/entity/product.entity";
-import { StoreRecord } from "../store";
+import type { StoreRecord } from "../store";
 
 @Entity("products")
 export class ProductRecord {
@@ -28,7 +28,7 @@ export class ProductRecord {
     @Column({ name: "store_id" })
     storeId: string;
 
-    @ManyToOne(() => StoreRecord)
+    @ManyToOne("StoreRecord")
     @JoinColumn({ name: "store_id" })
     store?: StoreRecord;
 
@@ -54,17 +54,16 @@ export class ProductRecord {
         return record;
     }
 
-    static toEntity(record: ProductRecord): Product {
+    toEntity(): Product {
         return new Product({
-            id: record.id,
-            name: record.name,
-            description: record.description,
-            price: record.price,
-            storeId: record.storeId,
-            createdAt: record.createdAt,
-            updatedAt: record.updatedAt,
-            deletedAt: record.deletedAt,
-            store: record.store ? StoreRecord.toEntity(record.store) : undefined,
+            id: this.id,
+            name: this.name,
+            description: this.description,
+            price: this.price,
+            storeId: this.storeId,
+            createdAt: this.createdAt,
+            updatedAt: this.updatedAt,
+            deletedAt: this.deletedAt,
         });
     }
 }

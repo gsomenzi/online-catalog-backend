@@ -27,7 +27,7 @@ class StoreRepository {
 
     async findById(id: string): Promise<Store | null> {
         const record = await this.storeDAO.findOne(new StoreByIdSpecification(id), new StoreActiveSpecification());
-        return record ? StoreRecord.toEntity(record) : null;
+        return record ? record.toEntity() : null;
     }
 
     async findUserStoreById(userId: string, storeId: string): Promise<Store | null> {
@@ -36,7 +36,7 @@ class StoreRepository {
             new StoreFromUserSpecification(userId),
             new StoreActiveSpecification()
         );
-        return record ? StoreRecord.toEntity(record) : null;
+        return record ? record.toEntity() : null;
     }
 
     async findAll(userId: string): Promise<Store[]> {
@@ -44,7 +44,7 @@ class StoreRepository {
             new StoreFromUserSpecification(userId),
             new StoreActiveSpecification()
         );
-        return records.map(StoreRecord.toEntity);
+        return records.map((record) => record.toEntity());
     }
 }
 

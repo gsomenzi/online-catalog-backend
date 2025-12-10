@@ -29,6 +29,12 @@ export class StoreController {
         return stores;
     }
 
+    @Get(":id")
+    async findById(@Param("id") id: string): Promise<Store | null> {
+        const store = await this.storeRepository.findUserStoreById(this.request.user.id, id);
+        return store;
+    }
+
     @Delete(":id")
     @HttpCode(HttpStatus.NO_CONTENT)
     async delete(@Param("id") storeId: string): Promise<void> {
