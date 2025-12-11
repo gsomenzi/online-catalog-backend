@@ -2,7 +2,7 @@ import { type DynamicModule, Global, Module, type Provider, type Type } from "@n
 import type { AuthorizationPolicy } from "../domain/ports/authorization-policy";
 import { PolicyBasedAuthorizationService } from "../infrastructure/policy-based-authorization-service";
 
-export const AUTHORIZATION_SERVICE = Symbol("AUTHORIZATION_SERVICE");
+export const AUTHZ_SERVICE = Symbol("AUTHZ_SERVICE");
 
 export interface PolicyBasedAuthorizationModuleOptions {
     policies: Type<AuthorizationPolicy>[];
@@ -13,7 +13,7 @@ export interface PolicyBasedAuthorizationModuleOptions {
 export class PolicyBasedAuthorizationModule {
     static forRoot(options: PolicyBasedAuthorizationModuleOptions): DynamicModule {
         const authorizationServiceProvider: Provider = {
-            provide: AUTHORIZATION_SERVICE,
+            provide: AUTHZ_SERVICE,
             useFactory: (...policies: AuthorizationPolicy[]) => {
                 const service = new PolicyBasedAuthorizationService();
 
@@ -29,7 +29,7 @@ export class PolicyBasedAuthorizationModule {
         return {
             module: PolicyBasedAuthorizationModule,
             providers: [...options.policies, authorizationServiceProvider],
-            exports: [AUTHORIZATION_SERVICE],
+            exports: [AUTHZ_SERVICE],
         };
     }
 }
