@@ -6,12 +6,14 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, Pos
 import { REQUEST } from "@nestjs/core";
 import { StoreRepository } from "@persistence/store";
 import { DeleteStoreUseCase } from "@/application/store/delete-store.use-case";
+import { GetStoreUseCase } from "@/application/store/get-store.use-case";
 
 @Controller("store")
 export class StoreController {
     constructor(
         private createStoreUseCase: CreateStoreUseCase,
         private deleteStoreUseCase: DeleteStoreUseCase,
+        private getStoreUseCase: GetStoreUseCase,
         private readonly storeRepository: StoreRepository,
         @Inject(REQUEST) private readonly request: AuthenticatedRequest
     ) {}
@@ -31,13 +33,13 @@ export class StoreController {
 
     @Get(":id")
     async findById(@Param("id") id: string): Promise<Store | null> {
-        const store = await this.storeRepository.findUserStoreById(this.request.user.id, id);
+        const store = await this.getStoreUseCase.execute(id, this.request.user);
         return store;
     }
 
     @Delete(":id")
     @HttpCode(HttpStatus.NO_CONTENT)
     async delete(@Param("id") storeId: string): Promise<void> {
-        await this.deleteStoreUseCase.execute(storeId, this.request.user.id);
+        await this.deleteStoreUseCase.execute(storeId, this.request.user);
     }
 }

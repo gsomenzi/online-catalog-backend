@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { Authorizable } from "@infrastructure/authorization/domain/decorators/authorizable.decorator";
 import { Exclude } from "class-transformer";
 import { Product } from "./product.entity";
 import { User } from "./user.entity";
@@ -14,6 +15,7 @@ type StoreProps = {
     products?: Product[];
 };
 
+@Authorizable("store")
 export class Store {
     id: string;
     name: string;

@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { DomainExceptionFilter } from "@infrastructure/filter";
 import { ClassSerializerInterceptor, VersioningType } from "@nestjs/common";
 import { NestFactory, Reflector } from "@nestjs/core";
