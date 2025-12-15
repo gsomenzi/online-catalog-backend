@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { Authorizable } from "@infrastructure/authorization/domain/decorators/authorizable.decorator";
+import { Authorizable } from "@gsomenzi/policy-based-authorization-system";
 import { Exclude } from "class-transformer";
 import { Product } from "./product.entity";
 import { User } from "./user.entity";
