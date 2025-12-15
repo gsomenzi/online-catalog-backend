@@ -5,6 +5,7 @@
     "": {
       "name": "online-catalog-backend",
       "dependencies": {
+        "@gsomenzi/policy-based-authorization-system": "^0.1.3",
         "@nestjs/common": "^11.0.1",
         "@nestjs/config": "^4.0.2",
         "@nestjs/core": "^11.0.1",
@@ -110,6 +111,8 @@
     "@commitlint/types": ["@commitlint/types@20.2.0", "", { "dependencies": { "@types/conventional-commits-parser": "^5.0.0", "chalk": "^5.3.0" } }, "sha512-KTy0OqRDLR5y/zZMnizyx09z/rPlPC/zKhYgH8o/q6PuAjoQAKlRfY4zzv0M64yybQ//6//4H1n14pxaLZfUnA=="],
 
     "@cspotcode/source-map-support": ["@cspotcode/source-map-support@0.8.1", "", { "dependencies": { "@jridgewell/trace-mapping": "0.3.9" } }, "sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw=="],
+
+    "@gsomenzi/policy-based-authorization-system": ["@gsomenzi/policy-based-authorization-system@0.1.3", "https://npm.pkg.github.com/download/@gsomenzi/policy-based-authorization-system/0.1.3/471ff9c9f62089dc4ee5f365829499d688a6d87f", { "peerDependencies": { "@nestjs/common": "^11.1.9", "@nestjs/core": "^11.1.9", "reflect-metadata": "^0.2.2" } }, "sha512-4LM3q71kfeM2ma+ChS0LRRUSrT1H3qIUdAjOuTX2yXzbvfxaIn9hPPXeCEhHMlQLFVP6SB1wxPlrcPvIhZH4xw=="],
 
     "@inquirer/ansi": ["@inquirer/ansi@1.0.2", "", {}, "sha512-S8qNSZiYzFd0wAcyG5AXCvUHC5Sr7xpZ9wZ2py9XR88jUz8wooStVx5M6dRzczbBWjic9NP7+rY0Xi7qqK/aMQ=="],
 

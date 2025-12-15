@@ -1,7 +1,7 @@
 import path from "node:path";
 import { AuthModule } from "@application/auth/auth.module";
 import { DatabaseModule } from "@config/database/database.module";
-import { PolicyBasedAuthorizationModule } from "@infrastructure/authorization";
+import { PolicyBasedAuthorizationModule } from "@gsomenzi/policy-based-authorization-system/nestjs";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { PersistenceModule } from "@persistence/persistence.module";

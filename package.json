@@ -28,6 +28,7 @@
         "prepare": "husky"
     },
     "dependencies": {
+        "@gsomenzi/policy-based-authorization-system": "^0.1.3",
         "@nestjs/common": "^11.0.1",
         "@nestjs/config": "^4.0.2",
         "@nestjs/core": "^11.0.1",

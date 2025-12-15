@@ -1,21 +1,21 @@
-import type { AuthorizationActions, AuthorizationContext } from "@infrastructure/authorization";
-import { AuthorizationPolicy } from "@infrastructure/authorization";
+import {
+    AuthorizationActions,
+    type AuthorizationContext,
+    ResourceAuthorizationPolicy,
+} from "@gsomenzi/policy-based-authorization-system";
 import { Store } from "@/domain/entity/store.entity";
+import { User } from "@/domain/entity/user.entity";
 
-export class GetStoreAuthorizationPolicy extends AuthorizationPolicy<Store> {
+export class GetStoreAuthorizationPolicy extends ResourceAuthorizationPolicy<User, Store> {
     readonly resourceClass = Store;
-    readonly action: AuthorizationActions = "read";
+    readonly action: AuthorizationActions = AuthorizationActions.READ;
 
-    can(context: AuthorizationContext<Store>) {
-        const {
-            user,
-            target: { resource },
-        } = context;
+    authorize(context: AuthorizationContext<User, Store>) {
+        const { user, resource } = context;
 
-        if (!this.isOwner(resource, user)) {
-            return this.deny("User does not own the store");
+        if (user.id === resource.userId) {
+            return this.allow();
         }
-
-        return this.allow();
+        return this.deny("User does not own the store");
     }
 }
